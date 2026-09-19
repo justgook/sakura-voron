@@ -6,6 +6,10 @@ This directory records the active macOS OrcaSlicer machine preset used for Sakur
 - Active preset: `Sakura 0.4`
 - Local installation path: `~/Library/Application Support/OrcaSlicer/user/default/machine/Sakura 0.4.json`
 - Local pre-change backup: `~/Library/Application Support/OrcaSlicer-backups/pre-happy-hare-20260919-213755`
+- Connection-fix backup: `~/Library/Application Support/OrcaSlicer-backups/pre-moonraker-url-fix-20260919-214933`
+- Host type: native `moonraker`
+- Moonraker API: `http://10.10.10.156:7125`
+- Device UI: `http://10.10.10.156`
 
 The preset configures four logical extruders for ViViD gates T0–T3, single-extruder multimaterial mode, Happy Hare print start/end metadata, native `T[next_extruder]` tool changes, and disables Orca's filament-change/tip-forming motion so Happy Hare owns filament handling.
 

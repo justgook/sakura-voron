@@ -5,7 +5,7 @@
     "machine_start_gcode": "MMU_START_SETUP INITIAL_TOOL={initial_tool} TOTAL_TOOLCHANGES=!total_toolchanges! REFERENCED_TOOLS=!referenced_tools! TOOL_COLORS=!colors! TOOL_TEMPS=!temperatures! TOOL_MATERIALS=!materials! FILAMENT_NAMES=!filament_names! PURGE_VOLUMES=!purge_volumes!\nMMU_START_CHECK\nPRINT_START EXTRUDER=[nozzle_temperature_initial_layer] BED=[bed_temperature_initial_layer_single] CHAMBER=[chamber_temperature]\nMMU_START_LOAD_INITIAL_TOOL\nPRIME_LINE\nSET_PRINT_STATS_INFO TOTAL_LAYER={total_layer_count}",
     "name": "Sakura 0.4",
     "nozzle_type": "brass",
-    "print_host": "10.10.10.156",
+    "print_host": "http://10.10.10.156:7125",
     "printer_settings_id": "Sakura 0.4",
     "support_multi_bed_types": "1",
     "version": "2.3.0.3",
@@ -113,5 +113,7 @@
         "1",
         "1",
         "1"
-    ]
+    ],
+    "host_type": "moonraker",
+    "print_host_webui": "http://10.10.10.156"
 }
