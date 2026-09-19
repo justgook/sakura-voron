@@ -1,0 +1,34 @@
+From f1c40e9323f0c138cf9f7492113529277949815d Mon Sep 17 00:00:00 2001
+From: Sakura Voron <justgook@gmail.com>
+Date: Sat, 19 Sep 2026 13:25:43 +0300
+Subject: [PATCH] Fix ViViD NFC reader names for generated unit
+
+---
+ installer/boards/custom/Kconfig.vvd | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/installer/boards/custom/Kconfig.vvd b/installer/boards/custom/Kconfig.vvd
+index 107ad5c2..ba0bce40 100644
+--- a/installer/boards/custom/Kconfig.vvd
++++ b/installer/boards/custom/Kconfig.vvd
+@@ -117,7 +117,7 @@ sensor_type: Generic 3950\n\
+ pullup_resistor: 2200\n\
+ \n\
+ # NFC reader gates 0/1\n\
+-[mmu_nfc_reader unit1_nfc01]\n\
++[mmu_nfc_reader $(UNIT_NAME)_nfc01]\n\
+ reader_type           : rc522\n\
+ cs_pin                : $(MCU_NAME):PB14\n\
+ spi_bus               : spi2_PB2_PB11_PB10\n\
+@@ -125,7 +125,7 @@ spi_speed             : 1000000\n\
+ debug                 : 0\n\
+ \n\
+ # NFC reader gates 2/3\n\
+-[mmu_nfc_reader unit1_nfc23]\n\
++[mmu_nfc_reader $(UNIT_NAME)_nfc23]\n\
+ reader_type           : rc522\n\
+ cs_pin                : $(MCU_NAME):PA8\n\
+ spi_bus               : spi2_PB2_PB11_PB10\n\
+-- 
+2.39.5
+
