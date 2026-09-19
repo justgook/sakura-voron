@@ -1,0 +1,49 @@
+From 66ebd3ab708f74c97f52bec97b7d3a972354b3dd Mon Sep 17 00:00:00 2001
+From: Sakura Voron <justgook@gmail.com>
+Date: Sat, 19 Sep 2026 13:38:32 +0300
+Subject: [PATCH] Fix buzz test for indexed selectors
+
+---
+ extras/mmu/unit/selectors/mmu_indexed_selector.py | 6 +++---
+ test/test_mmu_selector.py                         | 8 ++++++++
+ 2 files changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/extras/mmu/unit/selectors/mmu_indexed_selector.py b/extras/mmu/unit/selectors/mmu_indexed_selector.py
+index 008e0446..29bf052a 100644
+--- a/extras/mmu/unit/selectors/mmu_indexed_selector.py
++++ b/extras/mmu/unit/selectors/mmu_indexed_selector.py
+@@ -155,9 +155,9 @@ class IndexedSelector(PhysicalSelector):
+     def buzz_motor(self, motor):
+         if motor == "selector":
+             pos = self.selector_stepper.commanded_pos
+-            self.move(None, pos + 5, wait=False)
+-            self.move(None, pos - 5, wait=False)
+-            self.move(None, pos, wait=False)
++            self._move_selector(None, pos + 5, wait=False)
++            self._move_selector(None, pos - 5, wait=False)
++            self._move_selector(None, pos, wait=False)
+         else:
+             return False
+         return True
+diff --git a/test/test_mmu_selector.py b/test/test_mmu_selector.py
+index cb02032c..205fbf84 100644
+--- a/test/test_mmu_selector.py
++++ b/test/test_mmu_selector.py
+@@ -684,6 +684,14 @@ class TestMultiUnitSelectors(SelectorTestCase):
+         self.assertEqual(self.selector('unit1').lgate_selected, 3)
+         self.assertEqual(self.hh.errors, [])
+ 
++    def test_indexed_selector_can_buzz_without_a_linear_move_method(self):
++        selector = self.selector(unit1)
++        before = selector.selector_stepper.commanded_pos
++
++        self.assertTrue(selector.buzz_motor(selector))
++
++        self.assertAlmostEqual(selector.selector_stepper.commanded_pos, before)
++
+     def test_index_calibration_refuses_filament_before_selector_motion(self):
+         gate = 10
+         axis = self.axis('unit1')
+-- 
+2.39.5
+
