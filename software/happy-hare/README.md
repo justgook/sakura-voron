@@ -12,6 +12,7 @@ The active checkout is on local branch `sakura-vivid`, with both patches applied
 
 The active generated configuration includes these post-install settings:
 
-- `toolhead_switch_pin: ^EBB:gpio13` — normally-closed HGX gear-spread filament switch; validated `Open` when empty and `TRIGGERED` with filament.
-- `show_bypass: 1` — exposes the virtual bypass for direct-to-extruder loading and testing.
+- The HGX gear-spread switch on `EBB:gpio13` is intentionally disabled because repeated calibration showed an unstable trigger point (about 7.4 mm variation).
+- Sensorless loading uses `extruder_homing_endstop: filament_compression` and the measured `toolhead_extruder_to_nozzle: 51.3`.
+- `show_bypass: 1` exposes the virtual bypass for direct-to-extruder loading and testing.
 - The Filametrix cutter remains disabled until its actuator bolt is installed and calibrated.
