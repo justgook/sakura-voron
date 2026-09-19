@@ -1,0 +1,117 @@
+{
+    "from": "User",
+    "inherits": "Voron 2.4 350 0.4 nozzle",
+    "is_custom_defined": "0",
+    "machine_start_gcode": "MMU_START_SETUP INITIAL_TOOL={initial_tool} TOTAL_TOOLCHANGES=!total_toolchanges! REFERENCED_TOOLS=!referenced_tools! TOOL_COLORS=!colors! TOOL_TEMPS=!temperatures! TOOL_MATERIALS=!materials! FILAMENT_NAMES=!filament_names! PURGE_VOLUMES=!purge_volumes!\nMMU_START_CHECK\nPRINT_START EXTRUDER=[nozzle_temperature_initial_layer] BED=[bed_temperature_initial_layer_single] CHAMBER=[chamber_temperature]\nMMU_START_LOAD_INITIAL_TOOL\nPRIME_LINE\nSET_PRINT_STATS_INFO TOTAL_LAYER={total_layer_count}",
+    "name": "Sakura 0.4",
+    "nozzle_type": "brass",
+    "print_host": "10.10.10.156",
+    "printer_settings_id": "Sakura 0.4",
+    "support_multi_bed_types": "1",
+    "version": "2.3.0.3",
+    "z_hop": [
+        "0",
+        "0",
+        "0",
+        "0"
+    ],
+    "machine_end_gcode": "MMU_END\nPRINT_END",
+    "layer_change_gcode": "_MMU_UPDATE_HEIGHT\nSET_PRINT_STATS_INFO CURRENT_LAYER={layer_num}",
+    "change_filament_gcode": "T[next_extruder]",
+    "single_extruder_multi_material": "1",
+    "manual_filament_change": "0",
+    "cooling_tube_length": "0",
+    "cooling_tube_retraction": "0",
+    "parking_pos_retraction": "0",
+    "extra_loading_move": "0",
+    "nozzle_diameter": [
+        "0.4",
+        "0.4",
+        "0.4",
+        "0.4"
+    ],
+    "extruder_colour": [
+        "#E53935",
+        "#43A047",
+        "#1E88E5",
+        "#FDD835"
+    ],
+    "extruder_offset": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0"
+    ],
+    "deretraction_speed": [
+        "40",
+        "40",
+        "40",
+        "40"
+    ],
+    "max_layer_height": [
+        "0.32",
+        "0.32",
+        "0.32",
+        "0.32"
+    ],
+    "min_layer_height": [
+        "0.08",
+        "0.08",
+        "0.08",
+        "0.08"
+    ],
+    "retraction_minimum_travel": [
+        "2",
+        "2",
+        "2",
+        "2"
+    ],
+    "retract_before_wipe": [
+        "70%",
+        "70%",
+        "70%",
+        "70%"
+    ],
+    "retract_when_changing_layer": [
+        "1",
+        "1",
+        "1",
+        "1"
+    ],
+    "retraction_length": [
+        "1",
+        "1",
+        "1",
+        "1"
+    ],
+    "retract_length_toolchange": [
+        "0",
+        "0",
+        "0",
+        "0"
+    ],
+    "retract_restart_extra": [
+        "0",
+        "0",
+        "0",
+        "0"
+    ],
+    "retract_restart_extra_toolchange": [
+        "0",
+        "0",
+        "0",
+        "0"
+    ],
+    "retraction_speed": [
+        "60",
+        "60",
+        "60",
+        "60"
+    ],
+    "wipe": [
+        "1",
+        "1",
+        "1",
+        "1"
+    ]
+}
