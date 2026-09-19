@@ -1,0 +1,86 @@
+From e0705fde897d87a8f22675c1fb670d2292a6b096 Mon Sep 17 00:00:00 2001
+From: Sakura Voron <justgook@gmail.com>
+Date: Sat, 19 Sep 2026 22:20:50 +0300
+Subject: [PATCH] Accept repeated OrcaSlicer purge matrices
+
+---
+ extras/mmu/commands/mmu_slicer_tool_map.py | 15 ++++++++++
+ test/test_mmu_slicer_tool_map.py           | 33 ++++++++++++++++++++++
+ 2 files changed, 48 insertions(+)
+ create mode 100644 test/test_mmu_slicer_tool_map.py
+
+diff --git a/extras/mmu/commands/mmu_slicer_tool_map.py b/extras/mmu/commands/mmu_slicer_tool_map.py
+index badfc290..e5c52662 100644
+--- a/extras/mmu/commands/mmu_slicer_tool_map.py
++++ b/extras/mmu/commands/mmu_slicer_tool_map.py
+@@ -19,6 +19,18 @@ from ..mmu_utils       import MmuError
+ from .mmu_base_command import *
+ 
+ 
++def _collapse_repeated_purge_matrix(volumes, num_tools):
++    """Collapse identical copies of an N x N slicer purge matrix."""
++    matrix_size = num_tools ** 2
++    if len(volumes) <= matrix_size or len(volumes) % matrix_size:
++        return volumes, False
++
++    matrices = [volumes[i:i + matrix_size] for i in range(0, len(volumes), matrix_size)]
++    if all(matrix == matrices[0] for matrix in matrices[1:]):
++        return matrices[0], True
++    return volumes, False
++
++
+ class MmuSlicerToolMapCommand(BaseCommand):
+ 
+     CMD = "MMU_SLICER_TOOL_MAP"
+@@ -122,6 +134,9 @@ class MmuSlicerToolMapCommand(BaseCommand):
+         if purge_volumes != "":
+             try:
+                 volumes = list(map(float, purge_volumes.split(',')))
++                volumes, collapsed = _collapse_repeated_purge_matrix(volumes, num_slicer_tools)
++                if collapsed:
++                    mmu.log_info("Collapsed repeated OrcaSlicer purge matrices to one %dx%d matrix" % (num_slicer_tools, num_slicer_tools))
+                 n = len(volumes)
+                 num_tools = mmu.num_gates
+                 if n == 1:
+diff --git a/test/test_mmu_slicer_tool_map.py b/test/test_mmu_slicer_tool_map.py
+new file mode 100644
+index 00000000..44c81a41
+--- /dev/null
++++ b/test/test_mmu_slicer_tool_map.py
+@@ -0,0 +1,33 @@
++import unittest
++
++from extras.mmu.commands.mmu_slicer_tool_map import _collapse_repeated_purge_matrix
++
++
++class TestPurgeMatrixCompatibility(unittest.TestCase):
++
++    def test_collapses_four_identical_four_tool_matrices(self):
++        matrix = [0, 98, 70, 133, 258, 0, 60, 132, 343, 205, 0, 220, 342, 271, 60, 0]
++
++        self.assertEqual(_collapse_repeated_purge_matrix(matrix * 4, 4), (matrix, True))
++
++    def test_preserves_valid_matrix(self):
++        matrix = list(range(16))
++
++        self.assertEqual(_collapse_repeated_purge_matrix(matrix, 4), (matrix, False))
++
++    def test_rejects_ambiguous_nonidentical_matrices_by_not_collapsing(self):
++        first = list(range(16))
++        second = first.copy()
++        second[1] = 999
++        volumes = first + second
++
++        self.assertEqual(_collapse_repeated_purge_matrix(volumes, 4), (volumes, False))
++
++    def test_preserves_unrelated_invalid_length(self):
++        volumes = list(range(17))
++
++        self.assertEqual(_collapse_repeated_purge_matrix(volumes, 4), (volumes, False))
++
++
++if __name__ == '__main__':
++    unittest.main()
+-- 
+2.39.5
+

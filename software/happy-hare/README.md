@@ -4,9 +4,9 @@
 - Version: v4.0.0
 - Install path: `/home/voron/Happy-Hare`
 - Base commit: see `UPSTREAM_COMMIT`
-- Local patches: fix generated ViViD NFC reader names for the default `unit0` name and indexed-selector buzz testing.
+- Local patches: fix generated ViViD NFC reader names, indexed-selector buzz testing, and OrcaSlicer 2.4.2 repeated purge matrices.
 
-The active checkout is on local branch `sakura-vivid`, with both patches applied.
+The active checkout is on local branch `sakura-vivid`, with all three patches applied.
 
 ## Printer-specific settings
 

@@ -10,6 +10,7 @@ This directory records the active macOS OrcaSlicer machine preset used for Sakur
 - Host type: native `moonraker`
 - Moonraker API: `http://10.10.10.156:7125`
 - Device UI: `http://10.10.10.156`
+- Original app backup: `~/Library/Application Support/OrcaSlicer-backups/OrcaSlicer-2.4.2-before-local-network-fix.app`
 
 The preset configures four logical extruders for ViViD gates T0–T3, single-extruder multimaterial mode, Happy Hare print start/end metadata, native `T[next_extruder]` tool changes, and disables Orca's filament-change/tip-forming motion so Happy Hare owns filament handling.
 
@@ -24,3 +25,11 @@ cp 'Sakura 0.4.json' "$HOME/Library/Application Support/OrcaSlicer/user/default/
 ```
 
 Keep the Happy Hare Moonraker file preprocessor enabled because `!referenced_tools!`, `!colors!`, and related placeholders are substituted during upload.
+
+## macOS local-network fix
+
+OrcaSlicer 2.4.2 lacks the local-network usage metadata required by this macOS release. `patch-macos-local-network.sh` adds the metadata and ad-hoc signs the installed app while preserving its runtime flags and entitlements. Run it only while OrcaSlicer is closed and after granting the terminal App Management permission.
+
+## OrcaSlicer 2.4.2 purge matrices
+
+With four logical extruders, OrcaSlicer 2.4.2 emits four identical copies of its 4×4 purge matrix. Happy Hare patch `0003-accept-repeated-orcaslicer-purge-matrices.patch` safely collapses identical copies. Oversized non-identical matrices remain errors.
