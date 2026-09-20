@@ -18,5 +18,6 @@ The active generated configuration includes these post-install settings:
 - The standard `toolhead_unload_safety_margin: 10` is retained; with the corrected path this gives an 81.3 mm release distance, validated without opening the HGX idler.
 - Tool changes park at `X45 Y347.5` with a 10 mm Z-hop. `NOZZLE_STATION_HH_MOVE` routes through `Y337.5`, `X30`, then approaches the silicone park from the left.
 - Standalone purging uses `NOZZLE_STATION_PURGE`: purge at `X20 Y347.5`, wipe between `X55` and `X90`, exit right at `X110`, then return to the saved print position.
+- Happy Hare's `complete` park is disabled because Orca calls `MMU_END` followed by `PRINT_END`; `PRINT_END` exclusively owns final parking at the silicone station and avoids an intermediate visit to `X50 Y50`.
 - `show_bypass: 1` exposes the virtual bypass for direct-to-extruder loading and testing.
 - The Filametrix cutter remains disabled until its actuator bolt is installed and calibrated.
